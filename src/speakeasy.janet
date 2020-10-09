@@ -33,9 +33,11 @@
                                (string output "/" out)
                                (string out))]
 
-     (when (indexed? form)
-       (->> form encode (spit output-filename))
-       true)))
+     (if (indexed? form)
+       (do
+         (->> form encode (spit output-filename))
+         true)
+      (print "Skipping file: " filename))))
 
 
 (defn render [output]
