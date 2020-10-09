@@ -40,16 +40,17 @@
 
 (defn render [output]
   (var counter 0)
-  (var total 0)
 
   (when output
     (os/mkdir output))
 
   (let [files (filter janet? (os/dir "."))]
     (each f files
-      (++ total)
       (when-let [result (render-file f output)]
         (++ counter))))
 
-  (printf "%d/%d html files generated" counter total))
+  (let [files-string (if (one? counter)
+                       "files"
+                       "file")]
+    (printf "%d html %s generated" counter files-string)))
 
