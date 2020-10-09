@@ -1,30 +1,17 @@
 #!/usr/bin/env janet
 
-(import db)
+(import speakeasy)
+(import argparse)
 
-(def args (dyn :args))
+(def argparse-params
+  ["speakeasy v1.0"
+   "output" {:kind :option
+             :short "o"
+             :help "Set the output directory"}])
 
-(def usage
-  "Usage"
-``` [action]
+(setdyn :args (put (dyn :args) 0 "speakeasy"))
 
-  Actions:
-    help                           - Print this usage information
-    new database:sqlite <name>     - Create a new sqlite database
-    new database:postgres <name>   - Create a new postgres database
-    new table <name>               - Create a new sql migration with create table
-    new migration <name>           - Create a new empty sql migration file
-    migrate                        - Run all pending migration files against the database
-    rollback                       - Rolls back the most recent migration
-    version                        - Print the current version
-```)
-
-(def action (get args 1))
-(def options (drop 2 args))
-
-(case action
-  "new" (db/new ;options)
-  "migrate" (db/migrate)
-  "rollback" (db/rollback)
-  "version" (print db/version)
-  (print "db" usage))
+(let [res (argparse/argparse ;argparse-params)]
+  (if res
+    (speakeasy/render (get res "output"))
+    (os/exit 1)))

@@ -1,7 +1,5 @@
 # html.janet
 # parts of the code shamelessly stolen from https://github.com/brandonchartier/janet-html
-(import ./env :as env)
-
 (defn escape [str]
   (let [str (string str)]
     (->> (string/replace-all "&" "&amp;" str)
@@ -149,9 +147,5 @@
     ""))
 
 
-(defn html [& args]
+(defn encode [& args]
   (string/join (map create args) ""))
-
-
-(defmacro encode [& args]
-  (html ;args))
