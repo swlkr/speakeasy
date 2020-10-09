@@ -1,3 +1,5 @@
+![speakeasy logo up in lights](logo.svg)
+
 # speakeasy
 
 Speakeasy is a static site generator written in [janet](https://github.com/janet-lang/janet)
