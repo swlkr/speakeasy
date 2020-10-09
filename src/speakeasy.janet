@@ -50,7 +50,7 @@
         (++ counter))))
 
   (let [files-string (if (one? counter)
-                       "files"
-                       "file")]
+                       "file"
+                       "files")]
     (printf "%d html %s generated" counter files-string)))
 
